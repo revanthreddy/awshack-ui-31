@@ -1,0 +1,27 @@
+{
+  "name": "awshack-ui-31",
+  "version": "0.0.0",
+  "description": "AWS re:invent Hackathon UI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node scripts/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/revanthreddy/awshack-ui-31.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/revanthreddy/awshack-ui-31/issues"
+  },
+  "homepage": "https://github.com/revanthreddy/awshack-ui-31#readme",
+  "dependencies": {
+    "gentelella": "^1.3.0"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
