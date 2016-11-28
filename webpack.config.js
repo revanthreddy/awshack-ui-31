@@ -2,10 +2,10 @@ var path = require("path");
 var webpack = require("webpack");
 
 module.exports = {
-  entry: "./build/js/custom.js",
+  entry: "./build/js/index.js",
   output: {
     path: path.resolve(__dirname, "./"),
-    filename: "./production/js/custom.min.js",
+    filename: "./dashboard/js/bundle.min.js",
   },
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.

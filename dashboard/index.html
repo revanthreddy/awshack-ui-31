@@ -590,8 +590,19 @@
     <script src="js/moment/moment.min.js"></script>
     <script src="js/datepicker/daterangepicker.js"></script>
 
+    <!-- Custom UI Bootstrapping -->
+    <script src="/dashboard/js/custom.min.js"></script>
+
     <!-- Custom Theme Scripts -->
-    <script src="/production/js/custom.min.js"></script>
+    <script src="/dashboard/js/bundle.min.js"></script>
+
+    <script>
+      console.log("hello")
+      api.getDummyData(function(error, data) {
+          console.log("we got data!");
+          console.log(data);
+      });
+    </script>
 
     <!-- Flot -->
     <script>
