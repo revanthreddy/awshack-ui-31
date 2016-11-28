@@ -1,14 +1,6 @@
 
 var CONSTANTS = require("./constants.js");
 
-/* module.exports = {
-    getDummyData = function(callback) {
-        console.log("hi");
-    }
-}; */
-
-
-
 (function () {
 
     var api = {
@@ -31,8 +23,3 @@ var CONSTANTS = require("./constants.js");
     window.api = api;
 
 })();
-
-/* $(document).ready(function() {
-    console.log("hello world");
-    console.log(CONSTANTS);
-}); */
