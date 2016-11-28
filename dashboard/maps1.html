@@ -17,7 +17,17 @@
         padding: 0;
       }
     </style>
+    <script src="/dashboard/js/bundle.min.js"></script>
+
+    <script>
+      console.log("hello")
+      api.getDummyData(function(error, data) {
+          console.log("we got data!");
+          console.log(data);
+      });
+    </script>
   </head>
+
   <body>
     <div id="map"></div>
     <script>
