@@ -4,20 +4,6 @@ var CONSTANTS = require("./constants.js");
 (function () {
 
     var api = {
-        getDummyData: function (callback) {
-            fetch(CONSTANTS.DUMMY_PATH).then(function (response) {
-
-                if (response.status === 200) {
-                    response.json().then(function (data) {
-                        callback(undefined, data);
-                    });
-                }
-
-            }).catch(function (err) {
-                console.log('Fetch Error :-S', err);
-                callback(err);
-            });
-        },
         poachingDataTypesOfFirearm: function(poachingData) {
             console.log("analyzing data " + poachingData.length);
             var firearmTypes = {};
@@ -37,8 +23,50 @@ var CONSTANTS = require("./constants.js");
 
             return firearmTypes;
         },
-        getPoachingData: function (callback) {
-            var url = CONSTANTS.BASE_URL + CONSTANTS.PATH.POACHING;
+
+        displayNames: CONSTANTS.CATEGORIES.DISPLAY_NAMES,
+
+        getValueForDisplayName: function(displayName) {
+            var value = "";
+            var index = CONSTANTS.CATEGORIES.DISPLAY_NAMES.indexOf(displayName)
+
+            if (index !== -1) {
+                value = CONSTANTS.CATEGORIES.VALUES[index];
+            }
+
+            return value;
+        },
+
+        getDisplayNameForCategory: function(category) {
+            var displayName = "";
+            var index = CONSTANTS.CATEGORIES.VALUES.indexOf(category)
+
+            if (index !== -1) {
+                displayName = CONSTANTS.CATEGORIES.DISPLAY_NAMES[index];
+            }
+
+            return displayName;
+        },
+
+        buildQueryString: function(query) {
+            console.log(query);
+            var queryString = "?";
+            
+            if (query.categories && query.categories.length > 0) {
+                queryString = queryString + "categories=";
+                for (var category of query.categories) {
+                    console.log("category " + category);
+                    queryString += this.getValueForDisplayName(category) + ",";
+                }
+            }
+
+            return queryString;
+        },
+
+        getPoachingData: function (query, callback) {
+
+            var url = CONSTANTS.BASE_URL + CONSTANTS.PATH.POACHING + this.buildQueryString(query);
+            console.log(url);
             fetch(url).then(function (response) {
 
                 if (response.status === 200) {
@@ -55,16 +83,18 @@ var CONSTANTS = require("./constants.js");
 
         getParsedPoachingDataForTheBarChart : function(poachingData){
             var resultMap = {}
-            for(var i =0 ; i < poachingData.length ; i++){
-                if(resultMap[poachingData[i].endpoint]){
-                    resultMap[poachingData[i].endpoint] += 1;
-                }else{
-                    resultMap[poachingData[i].endpoint] = 1;
+            for(var i =0 ; i < poachingData.length ; i++) {
+
+                var displayName = this.getDisplayNameForCategory(poachingData[i].endpoint);
+                
+                if (resultMap[displayName]){
+                    resultMap[displayName] += 1;
+                } else{
+                    resultMap[displayName] = 1;
                 }
             }
             return resultMap;
         }
-        
     }
 
     window.api = api;
