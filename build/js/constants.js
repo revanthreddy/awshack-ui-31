@@ -22,6 +22,15 @@ module.exports = {
             'people_observed',
             'hunting_camp',
             'patrol_observation'
+        ],
+        ICON: [
+            "http://labs.google.com/ridefinder/images/mm_20_gray.png",
+            "http://labs.google.com/ridefinder/images/mm_20_orange.png",
+            "http://labs.google.com/ridefinder/images/mm_20_green.png",
+            "http://labs.google.com/ridefinder/images/mm_20_purple.png",
+            "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            "http://labs.google.com/ridefinder/images/mm_20_white.png",
+            "http://labs.google.com/ridefinder/images/mm_20_yellow.png"
         ]
     }
 }

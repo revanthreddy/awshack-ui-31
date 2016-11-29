@@ -26,6 +26,17 @@ var CONSTANTS = require("./constants.js");
 
         displayNames: CONSTANTS.CATEGORIES.DISPLAY_NAMES,
 
+        getIconForValue: function(displayName) {
+            var icon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+            var index = CONSTANTS.CATEGORIES.VALUES.indexOf(displayName)
+            
+            if (index !== -1) {
+                icon = CONSTANTS.CATEGORIES.ICON[index];
+            }
+
+            return icon;
+        },
+
         getValueForDisplayName: function(displayName) {
             var value = "";
             var index = CONSTANTS.CATEGORIES.DISPLAY_NAMES.indexOf(displayName)

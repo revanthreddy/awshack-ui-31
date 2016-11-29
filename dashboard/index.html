@@ -430,7 +430,7 @@
             position: latLng,
             map: map,
             poachData: data[i],
-            icon: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" //src http://stackoverflow.com/a/18623391/1349766
+            icon: api.getIconForValue(data[i].endpoint)// "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" //src http://stackoverflow.com/a/18623391/1349766
           }).addListener('click', function() {
             map.setCenter(this.getPosition());  
             infowindow.setContent("<p>" + api.getDisplayNameForCategory(this.poachData.endpoint) + "</p>");
