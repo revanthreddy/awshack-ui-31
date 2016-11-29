@@ -58,7 +58,7 @@
                 <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="index.html">Dashboard</a></li>
-                    <li><a href="index2.html">Predictions</a></li>
+                    <li><a href="events.html">Events</a></li>
                   </ul>
                 </li>
 
@@ -433,7 +433,7 @@
             icon: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" //src http://stackoverflow.com/a/18623391/1349766
           }).addListener('click', function() {
             map.setCenter(this.getPosition());  
-            infowindow.setContent("<p>" + JSON.stringify(this.poachData) + "</p>");
+            infowindow.setContent("<p>" + api.getDisplayNameForCategory(this.poachData.endpoint) + "</p>");
             infowindow.open(map, this); 
           });
 
