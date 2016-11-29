@@ -33,6 +33,18 @@ var CONSTANTS = require("./constants.js");
                 callback(err);
             });
         },
+
+        getParsedPoachingDataForTheBarChart : function(poachingData){
+            var resultMap = {}
+            for(var i =0 ; i < poachingData.length ; i++){
+                if(resultMap[poachingData[i].endpoint]){
+                    resultMap[poachingData[i].endpoint] += 1;
+                }else{
+                    resultMap[poachingData[i].endpoint] = 1;
+                }
+            }
+            return resultMap;
+        }
     }
 
     window.api = api;

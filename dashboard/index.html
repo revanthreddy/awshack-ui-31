@@ -260,64 +260,18 @@
           </div>
         </div>
         <br />
-
+        <div class="row">
+          <div class= "col-md-6 col-sm-6 col-xs-12">
+              <canvas id="mybarChart"></canvas>
+            </div>
+        </div>
         <div class="row">
           <div class "col-md-12 col-sm-12 col-xs-12">
             <div id="mapContainer" style="height: 100%; width: 100%;">
               <div style="height: 500px; width:500px;" id="map"></div>
             </div>
           </div>
-          <!--<div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="x_panel tile fixed_height_320">
-              <div class="x_title">
-                <h2>Quick Settings</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a>
-                      </li>
-                      <li><a href="#">Settings 2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a>
-                  </li>
-                </ul>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <div class="dashboard-widget-content">
-                  <ul class="quick-list">
-                    <li><i class="fa fa-calendar-o"></i><a href="#">Settings</a>
-                    </li>
-                    <li><i class="fa fa-bars"></i><a href="#">Subscription</a>
-                    </li>
-                    <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
-                    <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                    </li>
-                    <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
-                    <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                    </li>
-                    <li><i class="fa fa-area-chart"></i><a href="#">Logout</a>
-                    </li>
-                  </ul>
-
-                  <div class="sidebar-widget">
-                    <h4>Profile Completion</h4>
-                    <canvas width="150" height="80" id="foo" class="" style="width: 160px; height: 100px;"></canvas>
-                    <div class="goal-wrapper">
-                      <span class="gauge-value pull-left">$</span>
-                      <span id="gauge-text" class="gauge-value pull-left">3,200</span>
-                      <span id="goal-text" class="goal-value pull-right">$5,000</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>-->
+          
         </div>
       </div>
       <!-- /page content -->
@@ -404,7 +358,37 @@
       api.getPoachingData(function(error, results) {
        var data  = results.data;
         
-        
+        var ctx = document.getElementById("mybarChart");
+                      var resultMap = api.getParsedPoachingDataForTheBarChart(data);
+                      var poachingEndpointLabels = Object.keys(resultMap);
+                      // console.log(resultMap);
+                      var numberOfHits =[]
+                      for(var j in poachingEndpointLabels){
+                          numberOfHits.push(resultMap[poachingEndpointLabels[j]]);
+                      }
+                      var mybarChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                          labels: poachingEndpointLabels,
+                          datasets: [{
+                            label: '# of hits',
+                            backgroundColor: "#26B99A",
+                            data: numberOfHits
+                          }]
+                        },
+
+                        options: {
+                          scales: {
+                            yAxes: [{
+                              ticks: {
+                                beginAtZero: true
+                              }
+                            }]
+                          }
+                        }
+                      });
+
+
         for (var i = 0; i < data.length; i++) {            
           var latLng = new google.maps.LatLng(data[i].latitude,data[i].longitude);
           latlngbounds.extend(latLng);
@@ -439,6 +423,8 @@
 
   <!-- Flot -->
   <script>
+
+
       $(document).ready(function() {
         var data1 = [
           [gd(2012, 1, 1), 17],
@@ -519,21 +505,36 @@
   <script src="js/maps/gdp-data.js"></script>
   <script>
       $(document).ready(function(){
-        $('#world-map-gdp').vectorMap({
-          map: 'world_mill_en',
-          backgroundColor: 'transparent',
-          zoomOnScroll: false,
-          series: {
-            regions: [{
-              values: gdpData,
-              scale: ['#E6F2F0', '#149B7E'],
-              normalizeFunction: 'polynomial'
-            }]
-          },
-          onRegionTipShow: function(e, el, code) {
-            el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-          }
-        });
+        // Bar chart
+
+        
+        // var ctx = document.getElementById("mybarChart");
+        
+        // var mybarChart = new Chart(ctx, {
+        //   type: 'bar',
+        //   data: {
+        //     labels: ["January", "February", "March", "April", "May", "June", "July"],
+        //     datasets: [{
+        //       label: '# of Votes',
+        //       backgroundColor: "#26B99A",
+        //       data: [51, 30, 40, 28, 92, 50, 45]
+        //     }, {
+        //       label: '# of Votes',
+        //       backgroundColor: "#03586A",
+        //       data: [41, 56, 25, 48, 72, 34, 12]
+        //     }]
+        //   },
+
+        //   options: {
+        //     scales: {
+        //       yAxes: [{
+        //         ticks: {
+        //           beginAtZero: true
+        //         }
+        //       }]
+        //     }
+        //   }
+        // });
       });
     </script>
   <!-- /jVectorMap -->
