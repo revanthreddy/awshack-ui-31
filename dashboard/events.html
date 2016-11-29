@@ -149,7 +149,7 @@
         <div class="">
           <div class="page-title">
             <div class="title_left">
-              <h3>Poaching Events Activity</h3>
+              <h3 style="color: black;">Poaching Events Activity</h3>
             </div>
 
             <div class="title_right">
@@ -186,7 +186,7 @@
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
                     </p>
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <table id="datatable-responsive" style="color: black;" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                       <thead>
                         <tr>
                           <th>Waypoint Id</th>
@@ -195,6 +195,7 @@
                           <th>Category</th>
                           <th>latitude</th>
                           <th>longitude</th>
+                          <th>Species</th>
                         </tr>
                       </thead>
                       <tbody id="eventData">
@@ -205,23 +206,8 @@
                           <td>weapons</td>
                           <td>-0.313474881</td>
                           <td>11.70122006</td>
-                        </tr>
-                        <tr role="row">
-                          <td>11</td>
-                          <td>2012-09-10T12:00:02</td>
-                          <td>PATROL</td>
-                          <td>weapons</td>
-                          <td>-0.313474881</td>
-                          <td>11.70122006</td>
-                        </tr>
-                        <tr role="row">
-                          <td>16</td>
-                          <td>2012-09-10T12:00:02</td>
-                          <td>PATROL</td>
-                          <td>weapons</td>
-                          <td>-0.313474881</td>
-                          <td>11.70122006</td>
-                        </tr>
+                          <td>Elephant</td>
+                        </tr>                        
                       </tbody>
                     </table>
 
@@ -279,8 +265,12 @@
         
         api.getPoachingData(function(error, data) {
           // 
+          
+
           for(var i = 0 ; i < data.length ; i++){
-            console.log(i+1);
+            var species = "n/a";
+            if(data[i]["Species"])
+                species = data[i]["Species"];
             $("#eventData").append(
             "<tr>"+
                 "<td>"+data[i]["Waypoint ID"]+"</td>"+
@@ -288,7 +278,8 @@
                 "<td>"+data[i]["Source"]+"</td>"+
                 "<td>"+data[i]["endpoint"]+"</td>"+
                 "<td>"+data[i]["latitude"]+"</td>"+
-                "<td>"+data[i]["longitude"]+"</td>"+                
+                "<td>"+data[i]["longitude"]+"</td>"+       
+                "<td>"+species+"</td>"+          
              "</tr>"                 
             );
           }
