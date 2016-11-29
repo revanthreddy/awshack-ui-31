@@ -199,18 +199,9 @@
                         </tr>
                       </thead>
                       <tbody id="eventData">
-                        <tr role="row">
-                          <td>15</td>
-                          <td>2012-09-10T12:00:02</td>
-                          <td>PATROL</td>
-                          <td>weapons</td>
-                          <td>-0.313474881</td>
-                          <td>11.70122006</td>
-                          <td>Elephant</td>
-                        </tr>                        
+                                          
                       </tbody>
                     </table>
-
                   </div>
                 </div>
               </div>
@@ -263,9 +254,7 @@
   <script>
       $(document).ready(function() {
         
-        api.getPoachingData(function(error, data) {
-          // 
-          
+        api.getPoachingData({}, function(error, data) {
 
           for(var i = 0 ; i < data.length ; i++){
             var species = "n/a";
