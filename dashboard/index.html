@@ -153,26 +153,29 @@
       <!-- page content -->
       <div class="right_col" role="main">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-3">
             <form id="checkBoxes">
             </form>
+            <button class="btn btn-success" onclick="runQuery()">Run Query</button>
           </div>
-          <div class="col-md-6">
-            <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+          <div class="col-md-9">
+            <div id="mapContainer" style="height: 100%; width: 100%;">
+              <div style="height: 500px; width:800px;" id="map"></div>
+            </div>
+            <!--<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
               <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
               <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="row">
-            <button class="btn btn-success" onclick="runQuery()">Run Query</button>
         </div>
 
         <div class="row">
           <div class "col-md-12 col-sm-12 col-xs-12">
-            <div id="mapContainer" style="height: 100%; width: 100%;">
+            <!--<div id="mapContainer" style="height: 100%; width: 100%;">
               <div style="height: 500px; width:500px;" id="map"></div>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -430,7 +433,7 @@
             position: latLng,
             map: map,
             poachData: data[i],
-            icon: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" //src http://stackoverflow.com/a/18623391/1349766
+            icon: api.getIconForValue(data[i].endpoint)// "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" //src http://stackoverflow.com/a/18623391/1349766
           }).addListener('click', function() {
             map.setCenter(this.getPosition());  
             infowindow.setContent("<p>" + api.getDisplayNameForCategory(this.poachData.endpoint) + "</p>");
