@@ -306,6 +306,10 @@
           mapTypeId: 'terrain'
         });
       }
+
+      setCurrentMarker = function() {
+
+      }
       
       function showFlotGraph(data){
 
@@ -381,34 +385,34 @@
         showFlotGraph(data);
 
         var ctx = document.getElementById("mybarChart");
-                      var resultMap = api.getParsedPoachingDataForTheBarChart(data);
-                      var poachingEndpointLabels = Object.keys(resultMap);
-                      // console.log(resultMap);
-                      var numberOfHits =[]
-                      for(var j in poachingEndpointLabels){
-                          numberOfHits.push(resultMap[poachingEndpointLabels[j]]);
-                      }
-                      var mybarChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                          labels: poachingEndpointLabels,
-                          datasets: [{
-                            label: '# of hits',
-                            backgroundColor: "#26B99A",
-                            data: numberOfHits
-                          }]
-                        },
+          var resultMap = api.getParsedPoachingDataForTheBarChart(data);
+          var poachingEndpointLabels = Object.keys(resultMap);
+          // console.log(resultMap);
+          var numberOfHits =[]
+          for(var j in poachingEndpointLabels){
+              numberOfHits.push(resultMap[poachingEndpointLabels[j]]);
+          }
+          var mybarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: poachingEndpointLabels,
+              datasets: [{
+                label: '# of hits',
+                backgroundColor: "#26B99A",
+                data: numberOfHits
+              }]
+            },
 
-                        options: {
-                          scales: {
-                            yAxes: [{
-                              ticks: {
-                                beginAtZero: true
-                              }
-                            }]
-                          }
-                        }
-                      });
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
 
           var firearmTypes = api.poachingDataTypesOfFirearm(data);
 
@@ -417,14 +421,27 @@
                 $("#tiles").append("<div class=\"col-md-2 col-sm-4 col-xs-6 tile_stats_count\"><span class=\"count_top\"> "+ property + "</span><div class=\"count\">" + firearmTypes[property]  + "</div><span class=\"count_bottom\"></span></div>");
             }
           }
+
+        
+        
         for (var i = 0; i < data.length; i++) {            
-          var latLng = new google.maps.LatLng(data[i].latitude,data[i].longitude);
+          var latLng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
           latlngbounds.extend(latLng);
+
+          var infowindow = new google.maps.InfoWindow();
+
           var marker = new google.maps.Marker({
             position: latLng,
-            map: map
+            map: map,
+            poachData: data[i],
+            icon: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png" //src http://stackoverflow.com/a/18623391/1349766
+          }).addListener('click', function() {
+            map.setCenter(this.getPosition());  
+            infowindow.setContent("<p>" + JSON.stringify(this.poachData) + "</p>");
+            infowindow.open(map, this); 
           });
         }
+    
       map.setCenter(latlngbounds.getCenter());
       map.fitBounds(latlngbounds); 
 
