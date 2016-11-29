@@ -157,7 +157,7 @@
           <h3>Types of Firearms</h3>
         </div>
         <!-- /top tiles -->
-        
+
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="dashboard_graph">
@@ -292,39 +292,6 @@
   <script src="/dashboard/js/bundle.min.js"></script>
 
   <script>
-<<<<<<< HEAD
-      console.log("hello")
-      api.getPoachingData(function(error, data) {
-
-          var firearmTypes = api.poachingDataTypesOfFirearm(data);
-
-          //inject the tiles at the top
-          /*           
-          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-            <div class="count">2500</div>
-            <span class="count_bottom"><i class="green">4% </i> From last Week</span>
-          </div>
-          */
-          for (var property in firearmTypes) {
-            if (firearmTypes.hasOwnProperty(property)) {
-                // do stuff
-                console.log(property);
-                console.log(firearmTypes[property]);
-                $("#tiles").append("<div class=\"col-md-2 col-sm-4 col-xs-6 tile_stats_count\"><span class=\"count_top\"> "+ property + "</span><div class=\"count\">" + firearmTypes[property]  + "</div><span class=\"count_bottom\"></span></div>");
-            }
-          }
-          
-      });
-=======
-      // api.getPoachingData(function(error, data) {
-      //     // console.log("we got poaching data!");
-      //     // console.log(data);
-      // });
->>>>>>> origin/master
-    </script>
-
-  <script>
       var map , latlngbounds;
       function initMap() {
        latlngbounds = new google.maps.LatLngBounds();
@@ -333,20 +300,19 @@
           center: new google.maps.LatLng(2.8,-187.3),
           mapTypeId: 'terrain'
         });
-
-        // // Create a <script> tag and set the USGS URL as the source.
-        // var script = document.createElement('script');
-        // // This example uses a local copy of the GeoJSON stored at
-        // // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-        // script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
-        // document.getElementsByTagName('head')[0].appendChild(script);
       }
       
       // Loop through the results array and place a marker for each
       // set of coordinates.
-      api.getPoachingData(function(error, results) {
-       var data  = results.data;
-        
+      api.getPoachingData(function(error, data) {
+
+          var firearmTypes = api.poachingDataTypesOfFirearm(data);
+
+          for (var property in firearmTypes) {
+            if (firearmTypes.hasOwnProperty(property)) {
+                $("#tiles").append("<div class=\"col-md-2 col-sm-4 col-xs-6 tile_stats_count\"><span class=\"count_top\"> "+ property + "</span><div class=\"count\">" + firearmTypes[property]  + "</div><span class=\"count_bottom\"></span></div>");
+            }
+          }
         
         for (var i = 0; i < data.length; i++) {            
           var latLng = new google.maps.LatLng(data[i].latitude,data[i].longitude);
@@ -356,27 +322,10 @@
             map: map
           });
         }
-
-        
-
-// or with ES6:
-// for( var latLng of LatLngList)
-//    latlngbounds.extend(latLng);
-
       map.setCenter(latlngbounds.getCenter());
       map.fitBounds(latlngbounds); 
 
       });
-      // window.eqfeed_callback = function(results) {
-      //   for (var i = 0; i < results.features.length; i++) {
-      //     var coords = results.features[i].geometry.coordinates;
-      //     var latLng = new google.maps.LatLng(coords[1],coords[0]);
-      //     var marker = new google.maps.Marker({
-      //       position: latLng,
-      //       map: map
-      //     });
-      //   }
-      // }
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNVvJT7zZxlD4w2VJfXd-GSHAvSn76s84&callback=initMap"></script>
 
